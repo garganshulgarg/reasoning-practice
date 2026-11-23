@@ -2,9 +2,9 @@
 const $app = document.getElementById('app');
 const L = 'abcd';
 const store = {
-  get(k, d) { try { const v = localStorage.getItem('br_' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem('br_' + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
-  del(k) { try { localStorage.removeItem('br_' + k); } catch (e) { /* ignore */ } }
+  get(k, d) { try { const v = localStorage.getItem('br3_' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('br3_' + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
+  del(k) { try { localStorage.removeItem('br3_' + k); } catch (e) { /* ignore */ } }
 };
 const GOOD = ['Awesome! 🌟', 'Super star! ⭐', 'You nailed it! 💥', 'Brilliant brain! 🧠', 'Rocket power! 🚀', 'High five! 🙌', 'Genius move! 🏆', 'Yesss! 🎉'];
 const BAD = ['Oops! Good try! 💪', 'Almost! Learn this one 👇', 'No worries — champions learn from mistakes! 🌈', 'Nice try! Read why below 👇'];
@@ -65,7 +65,7 @@ function home() {
   const p = pool().length;
   if (setup.count !== 'all' && setup.count > p) setup.count = p;
   $app.innerHTML = `
-  <div class="hero"><div class="rocket">🚀</div><h1>Brain <span>Rocket</span> Reasoning</h1><p>Hi ${esc(nm())}! Ready for blast-off? 🌟</p></div>
+  <div class="hero"><div class="rocket">🚀</div><h1>Brain <span>Rocket</span> Reasoning</h1><p>Hi ${esc(nm())}! Term 3 practice — ready for blast-off? 🌟</p></div>
   <div class="panel">
     <h2>👦 Your name, Captain</h2>
     <div class="name-row"><input id="nm" maxlength="20" placeholder="Type your name" value="${esc(store.get('name', ''))}"><button class="chip" id="mute">${store.get('mute', false) ? '🔇 Sound off' : '🔊 Sound on'}</button></div>
@@ -81,7 +81,7 @@ function home() {
       <div class="chips" id="cnt">${[5, 10, 15, 20, 30].filter(n => n < p).map(n => `<button class="chip ${setup.count === n ? 'on' : ''}" data-n="${n}">${n}</button>`).join('')}
         <button class="chip ${setup.count === 'all' || setup.count === p ? 'on' : ''}" data-n="all">All ${p}</button>
         <span class="chip">✏️ <input id="custom" type="number" min="1" max="${p}" placeholder="Other"></span></div>`
-    : `<div class="opts-title">📝 Exam has all ${QUESTIONS.length} questions from the book pages and the school worksheet. You can go back and change answers before submitting.</div>`}
+    : `<div class="opts-title">📝 Exam has all ${QUESTIONS.length} Term 3 questions. You can go back and change answers before submitting.</div>`}
     <button class="go" id="go">${setup.mode === 'practice' ? '🚀 Start Practice' : '📝 Start Exam'}</button>
   </div>
   <div class="panel"><h2>🏅 My Exam Scores</h2>
@@ -90,7 +90,7 @@ function home() {
     : '<p>No exams yet. Finish an exam to see your score here! 💪</p>'}
   </div>`;
   const nmIn = document.getElementById('nm');
-  nmIn.onchange = () => { store.set('name', nmIn.value.trim()); document.querySelector('.hero p').textContent = `Hi ${nm()}! Ready for blast-off? 🌟`; };
+  nmIn.onchange = () => { store.set('name', nmIn.value.trim()); document.querySelector('.hero p').textContent = `Hi ${nm()}! Term 3 practice — ready for blast-off? 🌟`; };
   document.getElementById('mute').onclick = () => { store.set('mute', !store.get('mute', false)); home(); };
   document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { setup.mode = b.dataset.mode; home(); });
   document.querySelectorAll('[data-sec]').forEach(b => b.onclick = () => {
@@ -129,7 +129,7 @@ function ctxHTML(q, collapse) {
 }
 function bodyHTML(q) {
   let h = `<div class="qtext"><span class="qnum">${q.n}</span>${q.q ? esc(q.q) : ''}</div>`;
-  if (q.qimg) h += `<div class="qimg-row"><img src="${q.qimg}" alt="question figures"><span class="blank">: ❓</span></div>`;
+  if (q.qimg) h += `<div class="qimg-row"><img src="${q.qimg}" alt="question figures">${q.blank ? '<span class="blank">: ❓</span>' : ''}</div>`;
   if (q.img) h += `<img class="qpic" src="${q.img}" alt="">`;
   if (q.match) h += `<table class="match">${q.match.left.map((src, i) => `<tr><td class="rn">(${['i', 'ii', 'iii', 'iv'][i]})</td><td><img src="${src}" alt=""></td><td class="rn">(${'ABCD'[i]})</td><td>${esc(q.match.right[i])}</td></tr>`).join('')}</table>`;
   return h;

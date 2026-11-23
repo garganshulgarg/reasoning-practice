@@ -75,7 +75,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .passage p { margin: 0 0 8px; }
 .passage .float { float: right; width: 150px; margin: 0 0 8px 10px; border-radius: 10px; }
 .qnum { display: inline-block; background: var(--blue); color: #fff; font-weight: 800; border-radius: 12px; padding: 2px 12px; margin-right: 8px; font-size: 20px; }
-.qtext { font-size: 23px; font-weight: 600; margin: 4px 0 12px; }
+.qtext { font-size: 23px; font-weight: 600; margin: 4px 0 12px; white-space: pre-line; }
 .qimg-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 14px; }
 .qimg-row img { max-width: 100%; height: auto; max-height: 170px; border-radius: 10px; }
 .qimg-row .blank { font-size: 32px; font-weight: 800; color: var(--orange); }
